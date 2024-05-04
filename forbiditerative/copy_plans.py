@@ -79,7 +79,8 @@ def get_number_of_plans(local_folder):
 
 def create_local_folder(create_found_plans_dir=True):
     import uuid
-    local_path = os.path.join("/", "tmp" , "planner_runs")
+    import os
+    local_path = os.environ['FI_PLANNER_RUNS'] if 'FI_PLANNER_RUNS' in os.environ else os.path.join("/", "tmp", "planner_runs") 
     if not os.path.exists(local_path):
         os.makedirs(local_path)
     local_folder_name = os.path.join(local_path , str(uuid.uuid4()).lower())
