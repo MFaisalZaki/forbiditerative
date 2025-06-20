@@ -2258,7 +2258,11 @@ public:
                   "T must be constructible with Args");
 
     *this = nullopt;
+    #if defined(__APPLE__) && defined(__clang__)
+    this->emplace(std::forward<Args>(args)...);
+    #else
     this->construct(std::forward<Args>(args)...);
+    #endif
     return value();
   }
 
